@@ -45,3 +45,16 @@ ForEach ($line in Get-Content <Path to File>) {
     Add-AzureADGroupMember -ObjectId <Group object ID> -RefObjectId $(Get-AzureADUser -ObjectID $line).ObjectID
 }
 ```
+
+## Elevate a powershell session from within Powershell
+The RunAs verb here elevates to admin. Replace powershell & arguments with whatever is needed.
+```powershell
+$startprocessParams = @{
+    FilePath = "powershell.exe"
+    ArgumentList = '-ExecutionPolicy', 'Bypass"', '-File', '"E:\Path\to\file.ps1"'
+    Verb = 'RunAs'
+    PassThru = $true
+    Wait = $true
+}
+Start-Process @startprocessParams
+```
