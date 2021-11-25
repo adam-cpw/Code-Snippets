@@ -2,6 +2,7 @@
 Various small scripts to automate tedious tasks
 
 * `LeaverCalendar.ps1` - Add leavers to the group calendar. Interactive.
+* `QuoteOTron.ps1` - Build a quick equipment quote. Interactive
 
 # Code snippets
 Things too small for their own file, but still worth writing down
