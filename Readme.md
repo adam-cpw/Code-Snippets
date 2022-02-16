@@ -59,3 +59,9 @@ $startprocessParams = @{
 }
 Start-Process @startprocessParams
 ```
+
+## Get a list of delegated access permissions for a mailbox
+Prints a semicolon seperated list of UPNs. Great for Egress.
+```powershell
+$list = ""; ForEach ($user in Get-EXOMailboxPermission -Identity "<Mailbox Identifier>"){$list += $user.User + ";"}; Write-Host $List
+```
