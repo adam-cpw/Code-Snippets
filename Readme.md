@@ -24,7 +24,7 @@ ForEach($line in Get-Content <Path to File>){
 ## Convert hybrid user to shared mailbox
 This needs to be ran from the on-prem Exchange powershell:
 ```powershell
-Set-RemoteMailbox "mailbox@domain.com" -Type Shared
+Set-ADUser -Identity ((Get-Recipient <shared mailbox email adddress>).samaccountname) -Replace @{msExchRemoteRecipientType=100;msExchRecipientTypeDetails=34359738368}
 ```
 
 Followed by a sync on the on-prem DC's Azure AD connector:
@@ -32,7 +32,9 @@ Followed by a sync on the on-prem DC's Azure AD connector:
 Start-ADSyncSyncCycle -PolicyType Delta
 ```
 
-From here wait for a little while (15 - 30 mins approx), then 365 license can be downgraded to an E1.
+Wait for the sync to finish. Log into Office 365 Exchange, either PS or web portal, and convert the user to a shared mailbox.
+
+Any licenses can then be removed in the admin centre.
 
 ## Bulk add members to Azure AD group from file
 After running `Connect-AzureAD` to log in, first run Get-AzureADGroup to find the group object ID:
